@@ -14,12 +14,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRegister } from "../api/use-register";
 import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
-
-const registerSchema = z.object({
-    name: z.string().trim().min(1, "Required"),
-    email: z.string().email(),
-    password: z.string().min(8, "Minimum of 8 characters required"),
-});
+import { registerSchema } from "../schemas";
 
 export const SignUpCard = () => {
 

@@ -39,12 +39,12 @@ async (c) => {
  }
 
 )
-.post("/register",zValidator("json",registerSchema) ,
+.post("/register",
+zValidator("json",registerSchema) ,
 async (c) => {
     const {name, email, password } = c.req.valid("json");
 
     const {account} = await createAdminClient();
-    // const user = 
     await account.create(
         ID.unique(),
         email,
