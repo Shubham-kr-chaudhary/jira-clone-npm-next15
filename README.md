@@ -1,162 +1,159 @@
-```markdown
+````markdown
 # Jira Clone (Code With Antonio)
 
-A real-time, Kanban-style task tracker inspired by Jira—built step-by-step following Code With Antonio’s tutorial, using Next.js, React, Tailwind CSS, Hono.js, and npm for package management.
+A real-time, Kanban-style task tracker inspired by Jira—built step-by-step following Code With Antonio’s tutorial, using Next.js, React, Tailwind CSS, Hono.js, and npm.
 
 🔗 **Live Demo:** https://next15-jira-clone-npm.vercel.app
 
 ---
 
-## 📝 Overview
+## 📝 Table of Contents
 
-This project implements core Jira features:
+1. [Overview](#overview)  
+2. [Features](#features)  
+3. [Tech Stack](#tech-stack)  
+4. [Project Structure](#project-structure)  
+5. [Getting Started](#getting-started)  
+6. [Environment Variables](#environment-variables)  
+7. [Contributing](#contributing)  
+8. [License](#license)  
+9. [Acknowledgements](#acknowledgements)  
+
+---
+
+## Overview
+
+This Jira Clone implements the core workflows of an issue-tracking system:
 
 - **Workspaces & Projects**  
-  Organize your work into multiple workspaces, each containing one or more projects.
-
 - **Kanban Boards & Columns**  
-  Within each project you can create customizable columns (e.g. To Do, In Progress, Done) and drag-and-drop issues between them.
-
-- **Issues (Tickets)**  
-  Create, edit, assign, comment on, and close tickets. View detailed modals for each issue.
-
-- **Users & Members**  
-  Invite members to your workspace/project and assign tickets to specific users.
-
-- **Real-Time Collaboration**  
-  All updates (boards, tickets, comments) broadcast instantly via WebSockets.
-
+- **Issues (Create, Edit, Drag-and-Drop)**  
+- **Real-Time Collaboration via WebSockets**  
 - **Authentication & Authorization**  
-  Sign up / Sign in with secure sessions. Route protection ensures only authorized users can access private pages.
-
-- **Responsive Design**  
-  Mobile-first layout with a sticky bottom navigation and an accessible sidebar for desktop.
+- **Responsive, Mobile-First Design**  
 
 ---
 
-## 🧰 Tech Stack
+## Features
 
-- **Framework:** Next.js (App Router, in `src/app/`)  
-- **Language:** TypeScript  
-- **Styling:** Tailwind CSS + shadcn/ui components  
-- **Backend & Realtime:** Hono.js (API routes under `src/app/api`) + WebSocket  
-- **Package Manager:** npm (swapped from Bun)  
-- **Deployment:** Vercel
-
----
-
-## 🚀 Features
-
-1. **Dynamic Workspaces & Projects**  
-   - Create, rename, delete workspaces and projects  
-2. **Custom Columns & Boards**  
-   - Add/remove columns, reorder via drag & drop (React DnD)  
-3. **Issue Detail Modals**  
-   - Edit title, description, status, assign members, add comments  
-4. **Live Sync**  
-   - WebSocket–powered real-time updates across clients  
-5. **User Management**  
-   - Invite members, assign roles, manage permissions  
-6. **Auth Guard**  
-   - Protected layouts in `src/app/(auth)` and middleware in `src/lib/session-middleware.ts`
+- **Dynamic Workspaces & Projects**  
+- **Custom Columns per Board**  
+- **Drag-and-Drop Tickets** (React DnD)  
+- **Issue Detail Modals** (title, description, assignees, comments)  
+- **Live Synchronization** (Hono.js WebSocket)  
+- **Role-Based Access & Protected Routes**  
+- **Sticky Bottom Navigation & Sidebar**  
+- **Dark & Light Modes**  
 
 ---
 
-## 📁 Project Structure
+## Tech Stack
 
-```
+| Layer                | Technology                        |
+| -------------------- | --------------------------------- |
+| Framework            | Next.js (App Router)              |
+| Language             | TypeScript                        |
+| Styling              | Tailwind CSS + shadcn/ui          |
+| API & Realtime       | Hono.js + WebSocket               |
+| Package Management   | npm / Yarn                        |
+| Deployment           | Vercel                            |
 
+---
+
+## Project Structure
+
+``` 
 .
-├── .env.local              # Environment variables
-├── next.config.mjs         # Next.js config
-├── package.json            # npm scripts & dependencies
-└── src/
-├── app/
-│   ├── (auth)/         # Sign-in / Sign-up flows & protected layouts
-│   ├── (dashboard)/    # Main dashboard & workspace/project pages
-│   ├── (standalone)/   # Public or error pages
-│   ├── api/            # Hono.js API & WebSocket handlers
-│   ├── fonts/          # Custom font imports
-│   ├── oauth/          # OAuth callback handlers
-│   ├── layout.tsx      # Root layout & global providers
-│   ├── loading.tsx     # Global loading indicator
-│   └── error.tsx       # Global error UI
-├── components/
-│   ├── ui/             # shadcn/ui primitives
-│   ├── navbar.tsx
-│   ├── sidebar.tsx
-│   ├── navigation.tsx
-│   ├── workspace-switcher.tsx
-│   ├── responsive-modal.tsx
-│   └── analytics-card.tsx
-├── features/
-│   ├── auth/           # Sign-in, sign-up, session hooks
-│   ├── workspaces/     # Workspace CRUD & UI logic
-│   ├── projects/       # Project pages & service calls
-│   ├── tasks/          # Issue/ticket components and API clients
-│   └── members/        # Invite & manage workspace members
-├── hooks/
-│   └── use-confirm.tsx # Custom “confirm before delete” hook
-├── lib/
-│   ├── config.ts       # Environment/config helper
-│   ├── oauth.ts        # OAuth utilities
-│   ├── rcp.ts          # tRPC client (if used)
-│   ├── session-middleware.ts
-│   └── utils.ts        # Shared helper functions
-└── styles/
-└── globals.css     # Tailwind base imports & overrides
-
+├── .env.local                # Environment variables
+├── next.config.mjs           # Next.js config
+├── package.json              # npm scripts & dependencies
+└── src
+    ├── app
+    │   ├── (auth)            # Sign-in / Sign-up flows & protected layouts
+    │   ├── (dashboard)       # Workspace & project pages
+    │   ├── (standalone)      # Public, error & loading pages
+    │   ├── api               # Hono.js API routes & WebSocket handlers
+    │   ├── fonts             # Custom font imports
+    │   ├── oauth             # OAuth callback handlers
+    │   ├── layout.tsx        # Root layout & global providers
+    │   ├── loading.tsx       # Global loading indicator
+    │   └── error.tsx         # Global error UI
+    ├── components            # Reusable UI components
+    │   ├── ui                # shadcn/ui primitives
+    │   ├── navbar.tsx
+    │   ├── sidebar.tsx
+    │   ├── navigation.tsx
+    │   └── workspace-switcher.tsx
+    ├── features              # Domain logic & API clients
+    │   ├── auth              # Authentication hooks & services
+    │   ├── workspaces
+    │   ├── projects
+    │   ├── tasks
+    │   └── members
+    ├── hooks                 # Custom React hooks
+    │   └── use-confirm.tsx
+    ├── lib                   # Utilities & middleware
+    │   ├── config.ts
+    │   ├── oauth.ts
+    │   ├── rpc.ts
+    │   └── session-middleware.ts
+    └── styles                # Global styles
+        └── globals.css       # Tailwind base & overrides
 ````
 
----
 
-## 💻 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- **Node.js** ≥ 18  
-- **Git**
+* Node.js ≥ 18
+* Git
 
-### Install & Run
+### Installation
 
-```bash
+``` 
 git clone https://github.com/<your-username>/jira-clone-node.git
 cd jira-clone-node
 npm install
+```
 
-# Development (hot reload)
+### Development
+
+``` 
 npm run dev
+```
 
-# Build for production
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Production
+
+``` 
 npm run build
 npm start
-````
-
-Open [http://localhost:3000](http://localhost:3000) to view your app.
+```
 
 ---
 
-## 🔧 Environment Variables
+## Environment Variables
 
 Copy and customize:
 
-```bash
+``` 
 cp .env.local.example .env.local
 ```
 
 * `NEXT_PUBLIC_WS_URL` — WebSocket endpoint (e.g. `ws://localhost:3000/api/ws`)
 * `JWT_SECRET` — Secret for signing sessions
-* Any OAuth client IDs/secrets under `oauth.*`
+* Any OAuth client IDs/secrets
 
 ---
 
 
-## 🎉 Acknowledgements
 
-Built following Code With Antonio’s two-part series:
-“Build a Jira Clone With Next.js, React, Tailwind, Hono.js”
+## Acknowledgements
 
-> by [Code With Antonio](https://www.youtube.com/@CodeWithAntonio)
+* **Code With Antonio**: “Build a Jira Clone With Next.js, React, Tailwind, Hono.js” tutorial
+* **Next.js**, **Tailwind CSS**, **Hono.js**, **shadcn/ui**, **React DnD**
 
 ```
 ```
