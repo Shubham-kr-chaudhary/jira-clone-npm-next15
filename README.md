@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+````markdown
+
+## Tech Stack
+
+| Layer                | Technology                        |
+| -------------------- | --------------------------------- |
+| Framework            | Next.js (App Router)              |
+| Language             | TypeScript                        |
+| Styling              | Tailwind CSS + shadcn/ui          |
+| API & Realtime       | Hono.js + WebSocket               |
+| Package Management   | npm / Yarn                        |
+| Deployment           | Vercel                            |
+
+---
+
+## Project Structure
+
+``` 
+.
+├── .env.local                # Environment variables
+├── next.config.mjs           # Next.js config
+├── package.json              # npm scripts & dependencies
+└── src
+    ├── app
+    │   ├── (auth)            # Sign-in / Sign-up flows & protected layouts
+    │   ├── (dashboard)       # Workspace & project pages
+    │   ├── (standalone)      # Public, error & loading pages
+    │   ├── api               # Hono.js API routes & WebSocket handlers
+    │   ├── fonts             # Custom font imports
+    │   ├── oauth             # OAuth callback handlers
+    │   ├── layout.tsx        # Root layout & global providers
+    │   ├── loading.tsx       # Global loading indicator
+    │   └── error.tsx         # Global error UI
+    ├── components            # Reusable UI components
+    │   ├── ui                # shadcn/ui primitives
+    │   ├── navbar.tsx
+    │   ├── sidebar.tsx
+    │   ├── navigation.tsx
+    │   └── workspace-switcher.tsx
+    ├── features              # Domain logic & API clients
+    │   ├── auth              # Authentication hooks & services
+    │   ├── workspaces
+    │   ├── projects
+    │   ├── tasks
+    │   └── members
+    ├── hooks                 # Custom React hooks
+    │   └── use-confirm.tsx
+    ├── lib                   # Utilities & middleware
+    │   ├── config.ts
+    │   ├── oauth.ts
+    │   ├── rpc.ts
+    │   └── session-middleware.ts
+    └── styles                # Global styles
+        └── globals.css       # Tailwind base & overrides
+````
+
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+* Node.js ≥ 18
+* Git
+
+### Installation
+
+``` 
+git clone https://github.com/<your-username>/jira-clone-node.git
+cd jira-clone-node
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+``` 
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+### Production
 
-To learn more about Next.js, take a look at the following resources:
+``` 
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment Variables
 
-## Deploy on Vercel
+Copy and customize:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+``` 
+cp .env.local.example .env.local
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* `NEXT_PUBLIC_WS_URL` — WebSocket endpoint (e.g. `ws://localhost:3000/api/ws`)
+* `JWT_SECRET` — Secret for signing sessions
+* Any OAuth client IDs/secrets
+
+---
+
+
+
+## Acknowledgements
+
+* **Code With Antonio**: “Build a Jira Clone With Next.js, React, Tailwind, Hono.js” tutorial
+* **Next.js**, **Tailwind CSS**, **Hono.js**, **shadcn/ui**, **React DnD**
+
+```
+```
