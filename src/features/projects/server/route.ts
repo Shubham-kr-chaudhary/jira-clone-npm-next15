@@ -35,22 +35,37 @@ const app = new Hono()
 
         let uploadedImageUrl: string | undefined;
 
-        if (image instanceof File){
-          const file = await storage.createFile(
-            IMAGES_BUCKET_ID,
-            ID.unique(),
-            image,
-          );
+        // if (image instanceof File){
+        //   const file = await storage.createFile(
+        //     IMAGES_BUCKET_ID,
+        //     ID.unique(),
+        //     image,
+        //   );
 
-          const arrayBuffer = await storage.getFilePreview(
-            IMAGES_BUCKET_ID,
-            file.$id,
-          );
+        //   const arrayBuffer = await storage.getFilePreview(
+        //     IMAGES_BUCKET_ID,
+        //     file.$id,
+        //   );
             
-          uploadedImageUrl=`data:image/png;base64,${Buffer.from(arrayBuffer).toString("base64")}`
-        }
+        //   uploadedImageUrl=`data:image/png;base64,${Buffer.from(arrayBuffer).toString("base64")}`
+        // }
 
-          
+          //... in the.post handler
+if (image instanceof File){
+  const file = await storage.createFile(
+    IMAGES_BUCKET_ID,
+    ID.unique(),
+    image,
+  );
+
+  const arrayBuffer = await storage.getFileView( // Changed from getFilePreview
+    IMAGES_BUCKET_ID,
+    file.$id,
+  );
+    
+  uploadedImageUrl=`data:image/png;base64,${Buffer.from(arrayBuffer).toString("base64")}`
+}
+//...
         const project = await databases.createDocument(
             DATABASE_ID,
             PROJECTS_ID,
@@ -155,22 +170,41 @@ const app = new Hono()
         }
         let uploadedImageUrl: string | undefined;
   
-        if (image instanceof File){
-          const file = await storage.createFile(
-            IMAGES_BUCKET_ID,
-            ID.unique(),
-            image,
-          );
+        // if (image instanceof File){
+        //   const file = await storage.createFile(
+        //     IMAGES_BUCKET_ID,
+        //     ID.unique(),
+        //     image,
+        //   );
   
-          const arrayBuffer = await storage.getFilePreview(
-            IMAGES_BUCKET_ID,
-            file.$id,
-          );
+        //   const arrayBuffer = await storage.getFilePreview(
+        //     IMAGES_BUCKET_ID,
+        //     file.$id,
+        //   );
             
-          uploadedImageUrl=`data:image/png;base64,${Buffer.from(arrayBuffer).toString("base64")}`
-        }else{
-          uploadedImageUrl=image;
-        }
+        //   uploadedImageUrl=`data:image/png;base64,${Buffer.from(arrayBuffer).toString("base64")}`
+        // }else{
+        //   uploadedImageUrl=image;
+        // }
+
+        //... in the.patch handler
+if (image instanceof File){
+  const file = await storage.createFile(
+    IMAGES_BUCKET_ID,
+    ID.unique(),
+    image,
+  );
+
+  const arrayBuffer = await storage.getFileView( // Changed from getFilePreview
+    IMAGES_BUCKET_ID,
+    file.$id,
+  );
+    
+  uploadedImageUrl=`data:image/png;base64,${Buffer.from(arrayBuffer).toString("base64")}`
+}else{
+  uploadedImageUrl=image;
+}
+//...
   
         const project = await databases.updateDocument(
           DATABASE_ID,
