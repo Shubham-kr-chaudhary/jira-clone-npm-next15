@@ -68,6 +68,8 @@ async (c) => {
     return c.json({success: true });
 })
 
+
+
 .post("/logout", sessionMiddleware,  async(c)=> {
 
     const account = c.get("account");

@@ -31,19 +31,41 @@ export async function createSessionClient() {
 
 
 
-export async function createAdminClient() {
-    const client = new Client()
-    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
-    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT!)
-    .setKey(process.env.NEXT_APPWRITE_KEY!);
+// export async function createAdminClient() {
+//     const client = new Client()
+//     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
+//     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT!)
+//     .setKey(process.env.NEXT_APPWRITE_KEY!);
 
 
-    return{
-        get account() {
-            return new Account(client);
-        },
-        get users(){
-            return new Users(client);
-        }
-    };
-};
+//     return{
+//         get account() {
+//             return new Account(client);
+//         },
+//         get users(){
+//             return new Users(client);
+//         }
+//     };
+// };
+
+export function createAdminClient() {
+  const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT;
+  const project = process.env.NEXT_PUBLIC_APPWRITE_PROJECT;
+  const key = process.env.NEXT_APPWRITE_KEY; // server-only
+
+  if (!endpoint || !project || !key) {
+    console.error({ endpoint: !!endpoint, project: !!project, key: !!key });
+    throw new Error("Missing Appwrite env vars (endpoint/project/key)");
+  }
+
+  const client = new Client()
+    .setEndpoint(endpoint)
+    .setProject(project)
+    .setKey(key);
+
+  return {
+    get account() { return new Account(client); },
+    get users() { return new Users(client); },
+    get databases(){ return new Databases(client); },
+  };
+}
