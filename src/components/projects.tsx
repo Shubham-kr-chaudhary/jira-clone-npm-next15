@@ -10,6 +10,12 @@ import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 
 
 
+type Project = {
+    $id: string;
+    name: string;
+    imageUrl?: string;
+};
+
 export const Projects = ()=>{
 
     // const projectId = null //TODO:Use the useProject hoook
@@ -28,7 +34,7 @@ export const Projects = ()=>{
                 <p className="text-xs uppercase text-neutral-500">Projects</p>
                  <RiAddCircleFill onClick={open} className=" size-5 text-neutral-500 cursor-pointer hover:opacity-75 transition"/>
             </div>
-            {data?.documents.map((project)=>{
+            {data?.documents.map((project: Project)=>{
                 const href = `/workspaces/${workspaceId}/projects/${project.$id}`;
 
                 const isActive = pathname === href ;
